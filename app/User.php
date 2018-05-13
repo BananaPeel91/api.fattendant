@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\OperatorUsers;
+use App\AttendantAircrafts;
+use App\JobApplicants;
 
 class User extends Authenticatable
 {
@@ -26,4 +29,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function operatorUsers(){
+
+        $this->hasMany(OperatorUsers::class);
+    }
+
+    public function attendantAircrafts(){
+
+        $this->hasMany(AttendantAircrafts::class);
+    }
+
+    public function jobApplicants(){
+
+        $this->hasMany(JobApplicants::class);
+    }
 }
