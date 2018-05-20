@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use\App\JobRoutes;
+use\App\Routes;
 use\App\Job;
 
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class JobController extends Controller
     public function index(Request $request)
     {
     	
-    	return response()->json(Job::with('aircraft', 'jobRoutes', 'operator')->get());
+    	return response()->json(Job::with('aircraft', 'routes', 'operator', 'routes.departureAirport', 'routes.arrivalAirport', 'applicants')->get());
     }
 
     public function search(Request $request)
@@ -28,14 +28,17 @@ class JobController extends Controller
     		 $jobs->where('aircraft_id', $request->get('aircraftId'));
     	}
 
-    	$result = response()->json($jobs->with('aircraft', 'jobRoutes', 'operator')->get());
+    	$result = response()->json($jobs->with('aircraft', 'routes', 'operator', 'routes.departureAirport', 'routes.arrivalAirport')->get());
 
     	return $result;
     }
 
      public function show($id)
     {
-    		$job = Job::find($id);
+    		$job = Job::filterJobById($id)->with('routes','aircraft', 'operator', 'routes.departureAirport', 'routes.arrivalAirport', 'applicants')->first();
+
+
+
         	
         	return response()->json($job);
         

@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\OperatorUsers;
 use App\AttendantAircrafts;
-use App\JobApplicants;
+use App\Job;
 
 class User extends Authenticatable
 {
@@ -32,16 +32,16 @@ class User extends Authenticatable
 
     public function operatorUsers(){
 
-        $this->hasMany(OperatorUsers::class);
+        return $this->hasMany(OperatorUsers::class);
     }
 
     public function attendantAircrafts(){
 
-        $this->hasMany(AttendantAircrafts::class);
+        return $this->hasMany(AttendantAircrafts::class);
     }
 
-    public function jobApplicants(){
+    public function jobs(){
 
-        $this->hasMany(JobApplicants::class);
+        return $this->belongsToMany(Job::class, 'job_applicants', 'job_id', 'user_id');
     }
 }

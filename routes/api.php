@@ -24,5 +24,8 @@ Route::get('jobs/{id}', 'JobController@show');
 Route::get('/routes', 'RoutesController@index');
 
 Route::get('/operators', 'OperatorsController@index');
+Route::get('/operators/{id}', 'OperatorsController@show');
 
 Route::get('/aircrafts', 'AircraftsController@index');
+
+Route::get('/airports', 'AirportsController@index');

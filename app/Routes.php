@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Airports;
+use App\Job;
 
 
 class Routes extends Model
@@ -30,5 +31,10 @@ class Routes extends Model
 		return $this->departureAirport()->union($this->arrivalAirport()->toBase());
 
 		
+	}
+
+	public function jobs(){
+
+		return $this->belongsToMany(Job::class, 'job_routes', 'job_id', 'route_id');
 	}
 }

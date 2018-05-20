@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Operators;
 use App\Aircrafts;
-use App\JobApplicants;
-use App\JobRoutes;
+use App\User;
+use App\Routes;
 
 class Job extends Model
 {
@@ -30,12 +30,24 @@ class Job extends Model
 
     public function applicants(){
 
-    	return $this->hasMany(JobApplicants::class);
+    	return $this->belongsToMany(User::class, 'job_applicants', 'job_id', 'user_id');
     }
 
-    public function jobRoutes(){
+    public function routes(){
 
-    	return $this->hasMany(JobRoutes::class);
+    	return $this->belongsToMany(Routes::class, 'job_routes', 'job_id', 'route_id');
+    }
+
+    public static function filterJobById($id){
+
+        $job = static::where('id', $id);
+
+        return $job;
+    }
+
+    public static function findJobByOperator($operatorId){
+
+        return static::where('operator_id', $operatorId);
     }
 
     

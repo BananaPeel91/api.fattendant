@@ -31,4 +31,8 @@ class Aircrafts extends Model
 
     	return $this->hasMany(Job::class);
     }
+    public function operators(){
+
+        return $this->belongsToMany(Operators::class, 'operator_aircrafts', 'operator_id', 'aircraft_id');
+    }
 }

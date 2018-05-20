@@ -17,16 +17,20 @@ class Operators extends Model
 
     public function jobs(){
 
-    	$this->hasMany(Job::class);
+    	return $this->hasMany(Job::class, 'operator_id');
     }
 
-    public function operatorAircrafts(){
+    public function aircrafts(){
 
-    	$this->hasMany(OperatorAircrafts::class);
+    	return $this->belongsToMany(Aircrafts::class, 'operator_aircrafts', 'operator_id', 'aircraft_id');
     }
 
     public function operatorUsers(){
 
-    	$this->hasMany(OperatorUsers::class);
+    	return $this->hasMany(OperatorUsers::class);
+    }
+
+    public static function filterOperatorById($id){
+        return static::where('id', $id);
     }
 }
