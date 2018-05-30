@@ -14,13 +14,5 @@ class AttendantAircrafts extends Model
 		
     ];
 
-    public function user(){
-
-    	$this->belongsTo(User::class);
-    }
-
-    public function aircraft(){
-
-    	$this->belongsTo(Aircrafts::class);
-    }
+    
 }

@@ -19,7 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/jobs', 'JobController@index');
 Route::post('/jobs/search', 'JobController@search');
+Route::post('/jobs/create', 'JobController@store');
 Route::get('jobs/{id}', 'JobController@show');
+
+Route::get('/attendants', 'AttendantsController@index');
+
 
 Route::get('/routes', 'RoutesController@index');
 
@@ -27,5 +31,6 @@ Route::get('/operators', 'OperatorsController@index');
 Route::get('/operators/{id}', 'OperatorsController@show');
 
 Route::get('/aircrafts', 'AircraftsController@index');
+Route::post('/aircrafts', 'AircraftsController@attendant');
 
 Route::get('/airports', 'AirportsController@index');

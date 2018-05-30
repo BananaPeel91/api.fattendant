@@ -22,9 +22,9 @@ class Aircrafts extends Model
     	return $this->belongsTo(Manufacturer::class);
     }
 
-    public function users(){
+    public function attendants(){
 
-    	return $this->hasMany(User::class);
+    	return $this->belongsToMany(User::class, 'attendant_aircrafts', 'user_id', 'aircraft_id');
     }
 
     public function jobs(){
@@ -35,4 +35,6 @@ class Aircrafts extends Model
 
         return $this->belongsToMany(Operators::class, 'operator_aircrafts', 'operator_id', 'aircraft_id');
     }
+
+    
 }

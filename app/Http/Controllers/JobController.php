@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use\App\Routes;
 use\App\Job;
+use\App\JobRoutes;
 
 use Illuminate\Http\Request;
 
@@ -42,5 +43,33 @@ class JobController extends Controller
         	
         	return response()->json($job);
         
+    }
+
+    public function store(Request $request)
+    {
+    	$job = Job::Create([
+    			'operator_id' => request('operator_id'),
+    			'aircraft_id' => request('aircraft_id'),
+    			'rate' => request('rate'),
+    			'start_date' => request('start_date'),
+    			'close_date' => request('close_date'),
+    	]);
+
+    	foreach(request('routes') as $routing)
+    	{
+    	$route = Routes::create([
+    		'departure_date' => $routing['departure_date'],
+    		'departure_time' => $routing['departure_time'],
+    		'departure_airport_id' => $routing['departure_airport_id'],
+    		'arrival_airport_id' => $routing['arrival_airport_id'],
+    	]);
+
+    	$jobRoute = JobRoutes::create([
+    		'job_id' => $job->id,
+    		'route_id' => $route->id,
+    	]);
+    }
+
+    return response()->json($job->id);
     }
 }

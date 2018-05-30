@@ -35,13 +35,18 @@ class User extends Authenticatable
         return $this->hasMany(OperatorUsers::class);
     }
 
-    public function attendantAircrafts(){
+    public function aircrafts(){
 
-        return $this->hasMany(AttendantAircrafts::class);
+        return $this->belongsToMany(Aircrafts::class, 'attendant_aircrafts', 'user_id', 'aircraft_id');
     }
 
     public function jobs(){
 
         return $this->belongsToMany(Job::class, 'job_applicants', 'job_id', 'user_id');
+    }
+
+    public static function getAttendants(){
+
+        return static::where('user_type', 1);
     }
 }
