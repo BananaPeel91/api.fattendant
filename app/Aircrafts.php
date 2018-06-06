@@ -19,7 +19,7 @@ class Aircrafts extends Model
 
     public function manufacturer() {
 
-    	return $this->belongsTo(Manufacturer::class);
+    	return $this->belongsTo(Manufacturers::class);
     }
 
     public function attendants(){

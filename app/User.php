@@ -49,4 +49,12 @@ class User extends Authenticatable
 
         return static::where('user_type', 1);
     }
+
+    public static function filterUserById($id){
+
+        $user = static::where('id', $id);
+
+        return $user;
+    
+    }
 }

@@ -14,6 +14,6 @@ class Manufacturers extends Model
 
     public function aircrafts(){
 
-    	$this->hasMany(Aircrafts::class);
+    	return $this->hasMany(Aircrafts::class);
     }
 }
