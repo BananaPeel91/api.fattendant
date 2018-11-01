@@ -15,11 +15,11 @@ class JobApplicants extends Model
 
     public function job(){
 
-    	$this->belongsTo(Job::class);
+    	return $this->belongsTo(Job::class);
     }
 
     public function user(){
 
-    	$this->belongsTo(User::class);
+    	return $this->belongsTo(User::class);
     }
 }

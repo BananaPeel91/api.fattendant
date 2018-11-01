@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use\App\Routes;
-use\App\Job;
-use\App\JobRoutes;
+use \App\Routes;
+use \App\Job;
+use \App\JobRoutes;
+use \App\JobApplicants;
 
 use Illuminate\Http\Request;
 
@@ -37,10 +38,7 @@ class JobController extends Controller
      public function show($id)
     {
     		$job = Job::filterJobById($id)->with('routes','aircraft', 'operator', 'routes.departureAirport', 'routes.arrivalAirport', 'applicants')->first();
-
-
-
-        	
+	
         	return response()->json($job);
         
     }
@@ -71,5 +69,32 @@ class JobController extends Controller
     }
 
     return response()->json($job->id);
+    }
+
+    public function apply(Request $request)
+    {
+        $jobApplicant = JobApplicants::create([
+            'job_id'  => request('jobId'),
+            'user_id' => request('userId'),
+
+        ]);
+
+        return response()->json(['message' => 'Thank you for your application!']);
+    }
+
+    public function getApplicants(Request $request)
+    {
+        $jobApplicants = JobApplicants::with('user')->where('job_id', request('id'))->get();
+
+        if (!$jobApplicants) {
+            return response()->json('no applicants found');
+        }
+
+        foreach ($jobApplicants as $jobApplicant) {
+            $users[] = $jobApplicant->user;
+        }
+
+
+        return response()->json($users);
     }
 }

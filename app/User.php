@@ -2,15 +2,18 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\OperatorUsers;
 use App\AttendantAircrafts;
 use App\Job;
+use App\UsersPermissions;
+
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_type'
     ];
 
     /**
@@ -45,6 +48,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Job::class, 'job_applicants', 'job_id', 'user_id');
     }
 
+    public function permissions(){
+        return $this->hasMany(UsersPermissions::class, 'user_type', 'user_type');
+    }
+
     public static function getAttendants(){
 
         return static::where('user_type', 1);
@@ -52,7 +59,7 @@ class User extends Authenticatable
 
     public static function filterUserById($id){
 
-        $user = static::where('id', $id);
+        $user = static::where('id', $id)->first();
 
         return $user;
     

@@ -15,10 +15,7 @@ class AttendantsController extends Controller
 	public function show($id){
 
 		$attendant = User::filterUserById($id)->with('aircrafts','aircrafts.manufacturer')->first();
-
-
-
-        	
+    	
         	return response()->json($attendant);
 	}
 }
